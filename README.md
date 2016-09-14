@@ -8,7 +8,7 @@ optional:
   - [32 bits](https://dl.dropboxusercontent.com/u/7936618/gcc-4.6.1_x86.tar.gz)
   - [64 bits](https://dl.dropboxusercontent.com/u/7936618/gcc-4.6.1.tar.gz)
 ```sh
-export PATH=$PATH:<PATH_TO_TOOLCHAIN>/bin/
+export PATH=$PATH:<PATH_TO_TOOLCHAIN>/bin/ (see 1)
 ```
  - Execute 
 ```sh
@@ -21,3 +21,5 @@ cd ../../
 ./usr/sim/hf_risc_sim/hf_risc_sim platform/single_core/image.bin 
 ```
 ---
+
+1- You can use "./export.sh" to export the PATH
