@@ -20,6 +20,7 @@ make image
 cd ../../
 ./usr/sim/hf_risc_sim/hf_risc_sim platform/single_core/image.bin 
 ```
+1- You can use "./export.sh" to export the PATH
 ---
 
-1- You can use "./export.sh" to export the PATH
+
