@@ -1,7 +1,7 @@
 # HellfireOS Realtime Operating System
 
 ---
-### Instruções usadas na aula de laboratório 01:
+### Instructions:
 
 optional: 
 - Download GNU cross (MIPS) toolchain (4.6 series, pre-built)
