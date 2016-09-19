@@ -79,7 +79,8 @@ void dispatch_isr(void *arg)
 		panic(PANIC_STACK_OVERFLOW);
 	if (krnl_tasks > 0){
 		process_delay_queue();
-		krnl_current_task = sched_rt();
+        // Aqui seta qual algoritmo está sendo usado
+		krnl_current_task = sched_rt_edf();
 		if (krnl_current_task == 0)
 			krnl_current_task = sched_be();
 		krnl_task->state = TASK_RUNNING;
@@ -144,6 +145,26 @@ static void sort_rt_queue(void)
 }
 
 /**
+ *  Sort the queue of real time tasks by order of deadline, in order to implement the EDF algorithm.
+ *  \Author: Hariel G.
+ **/
+static void sort_rt_queue_by_deadline(void)
+{
+    int32_t i, j, cnt;
+    struct tcb_entry *e1, *e2;
+    
+    cnt = hf_queue_count(krnl_rt_queue);
+    for (i = 0; i < cnt-1; i++){
+        for (j = i + 1; j < cnt; j++){
+            e1 = hf_queue_get(krnl_rt_queue, i);
+            e2 = hf_queue_get(krnl_rt_queue, j);
+            if (e1->deadline > e2->deadline)
+                if (hf_queue_swap(krnl_rt_queue, i, j)) panic(PANIC_CANT_SWAP);
+        }
+    }
+}
+
+/**
  * @brief Real time (RT) scheduler.
  * 
  * @return Real time task id.
@@ -192,4 +213,48 @@ int32_t sched_rt(void)
 		krnl_task = &krnl_tcb[0];
 		return 0;
 	}
+}
+
+
+
+/**
+ *  Tentativa miseravel de implementar o EDF, não sei se entendi direito mas se pah é meio babacão mesmo...
+ **/
+
+int32_t sched_rt_edf(void)
+{
+    int32_t i, k;
+    uint16_t id = 0;
+    
+    k = hf_queue_count(krnl_rt_queue);
+    if (k == 0)
+        return 0;
+    
+    sort_rt_queue_by_deadline();
+    
+    for (i = 0; i < k; i++){
+        krnl_task = hf_queue_remhead(krnl_rt_queue);
+        if (!krnl_task) panic(PANIC_NO_TASKS_RT);
+        if (hf_queue_addtail(krnl_rt_queue, krnl_task))
+            panic(PANIC_CANT_PLACE_RT);
+        if (krnl_task->state != TASK_BLOCKED && krnl_task->capacity_rem > 0 && !id){
+            id = krnl_task->id;
+            if (--krnl_task->capacity_rem == 0)
+                krnl_task->rtjobs++;
+        }
+        if (--krnl_task->deadline_rem == 0){
+            krnl_task->deadline_rem = krnl_task->period;
+            if (krnl_task->capacity_rem > 0) krnl_task->deadline_misses++;
+            krnl_task->capacity_rem = krnl_task->capacity;
+        }
+    }
+    
+    if (id){
+        krnl_task = &krnl_tcb[id];
+        return id;
+    }else{
+        /* no RT task to run */
+        krnl_task = &krnl_tcb[0];
+        return 0;
+    }
 }
