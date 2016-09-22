@@ -22,6 +22,14 @@ cd ../../
 ```
 1- You can use "./export.sh" to export the PATH
 
----
+ - T1 
+```
+gcc /usr/sim/hf_risc_sim/hf_risc_sim.c -o /usr/sim/hf_risc_sim/hf_risc_sim
+cd platform/single_core
+make image
+cd ../../
+./usr/sim/hf_risc_sim/hf_risc_sim platform/single_core/image.bin 
+```
+
 
 
