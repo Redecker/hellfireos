@@ -210,7 +210,7 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 scheduler.o
  .reginfo       0x0000000000000000       0x18 scheduler.o
  .pdr           0x0000000000000000       0x80 scheduler.o
- .text.sched_rt
+ .text.sched_rt_edf
                 0x0000000000000000      0x298 scheduler.o
  .text          0x0000000000000000        0x0 semaphore.o
  .data          0x0000000000000000        0x0 semaphore.o
@@ -424,9 +424,9 @@ Linker script and memory map
  .text.sched_be
                 0x000000004000208c      0x114 scheduler.o
                 0x000000004000208c                sched_be
- .text.sched_rt_edf
+ .text.sched_rt
                 0x00000000400021a0      0x298 scheduler.o
-                0x00000000400021a0                sched_rt_edf
+                0x00000000400021a0                sched_rt
  .text.dispatch_isr
                 0x0000000040002438      0x2a4 scheduler.o
                 0x0000000040002438                dispatch_isr

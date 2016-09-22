@@ -8,8 +8,6 @@ void task(void){
 	}
 
 }
-
-//essa aplicacao buga porque os deadlines sempre sao os primeiros!!!!
 void app_main(void){
 	hf_spawn(task, 10, 1, 10, "task 1", 1024);
 	hf_spawn(task, 20, 1, 20, "task 2", 1024);
