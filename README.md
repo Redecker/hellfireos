@@ -22,8 +22,6 @@ cd ../../
 ```
 1- You can use "./export.sh" to export the PATH
 
----
-
 - T1
 ```
 cd platform/single_core/
@@ -34,3 +32,5 @@ cd ../../
 ./usr/sim/hf_risc_sim/hf_risc_sim platform/single_core/image.bin log.txt
 java -jar usr/kprofiler/Kprofiler.jar 
 ```
+---
+
