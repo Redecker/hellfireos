@@ -1,21 +1,17 @@
 #include <hellfire.h>
 
 void task(void){
-	//just to skip time
 	for(;;){
 		printf("task %d \n", hf_selfid());		
-		delay_ms(500);
+		delay_ms(200);
 	}
-
 }
-
-//essa aplicacao buga porque os deadlines sempre sao os primeiros!!!!
 void app_main(void){
-	hf_spawn(task, 2, 1, 2, "task 1", 1024);
-	hf_spawn(task, 3, 1, 3, "task 2", 1024);
-	hf_spawn(task, 4, 1, 4, "task 3", 1024);
-	hf_spawn(task, 5, 1, 5, "task 4", 1024);
-	hf_spawn(task, 6, 1, 6, "task 5", 1024);
-	hf_spawn(task, 7, 1, 7, "task 6", 1024);
+	hf_spawn(task, 12, 1, 12, "task 1", 1024);
+	hf_spawn(task, 10, 3, 10, "task 2", 1024);
+	hf_spawn(task, 15, 1, 15, "task 3", 1024);
+	hf_spawn(task, 17, 2, 17, "task 4", 1024);
+	hf_spawn(task, 30, 5, 30, "task 5", 1024);
+	hf_spawn(task, 24, 4, 24, "task 6", 1024);
 }
 
