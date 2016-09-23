@@ -1,4 +1,4 @@
-APP = app/app2
+APP = app/app3
 ARCH = mips/hf-risc
 
 SERIAL_BAUD=57600

@@ -80,8 +80,8 @@ void dispatch_isr(void *arg)
 	if (krnl_tasks > 0){
 		process_delay_queue();
         // Aqui seta qual algoritmo está sendo usado
-		//krnl_current_task = sched_rt_edf();
-		krnl_current_task = sched_rt();
+		krnl_current_task = sched_rt_edf();
+		//krnl_current_task = sched_rt();
 		if (krnl_current_task == 0)
 			krnl_current_task = sched_be();
 		krnl_task->state = TASK_RUNNING;
