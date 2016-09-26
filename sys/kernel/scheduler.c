@@ -159,7 +159,7 @@ static void sort_rt_queue_by_deadline(void)
         for (j = i + 1; j < cnt; j++){
             e1 = hf_queue_get(krnl_rt_queue, i);
             e2 = hf_queue_get(krnl_rt_queue, j);
-            if (e1->deadline > e2->deadline)
+            if (e1->deadline_rem > e2->deadline_rem)
                 if (hf_queue_swap(krnl_rt_queue, i, j)) panic(PANIC_CANT_SWAP);
         }
     }
