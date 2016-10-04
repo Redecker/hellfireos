@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.00 [Oct  3 2016, 20:54:40]
+HellfireOS v2.00 [Oct  4 2016, 17:40:01]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2016]
 ===========================================================
 
@@ -15,16 +15,19 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _irq_init()
 HAL: _timer_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 100020f4, sp: 1000614c, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 100022ec, sp: 1000669c, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core 3
 KERNEL: NoC queue init, 64 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [T4], id: 1, p:0, c:0, d:0, addr: 10000a48, sp: 1000947c, ss: 4096 bytes
-KERNEL: free heap: 485368 bytes
+KERNEL: [T7], id: 1, p:0, c:0, d:0, addr: 1000067c, sp: 100099cc, ss: 4096 bytes
+KERNEL: [T4], id: 2, p:0, c:0, d:0, addr: 10000a4c, sp: 1000a9d4, ss: 4096 bytes
+KERNEL: free heap: 481264 bytes
 KERNEL: HellfireOS is running
-hello from cpu 0 thread 1
-sender, hf_sendack(): error 65333
+Sou T7 e Recebi de T1 
+Sou T7 e Recebi de T3 
+Sou T4 e Recebi de T1 
+T4 enviando para T8, da CPU 3 e thread 2
 
-KERNEL: panic [task 1] - unknown error -> system halted.
+KERNEL: panic [task 2] - unknown error -> system halted.
