@@ -3,6 +3,8 @@
 
 void t1(void){
 
+	printf("T1 começou\n");
+
 	int8_t buft7[1280];
 	int8_t buft2[256];
 	int8_t buft3[64];
@@ -39,9 +41,15 @@ void t1(void){
 	sprintf(buft5, "Recebi de T1 \n");
 	result = hf_sendack(1, 50, buft5, sizeof(buft5), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+	printf("T1 acabou\n");
+	while(1){}
 }
 
 void t2(void){
+
+	printf("T2 começou\n");
+
 	//recebe
 	int8_t buft1[256];
 	//envia
@@ -77,9 +85,15 @@ void t2(void){
 	sprintf(buft8, "Recebi de T2 \n");
 	result = hf_sendack(4, 80, buft8, sizeof(buft8), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+	printf("T2 acabou\n");
+	while(1){}
 }
 
 void t3(void){
+
+	printf("T3 começou\n");
+
 	//recebe
 	int8_t buft1[64];
 	//envia
@@ -109,9 +123,15 @@ void t3(void){
 	sprintf(buft8, "Recebi de T3 \n");
 	result = hf_sendack(4, 80, buft8, sizeof(buft8), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+	printf("T3 acabou\n");
+	while(1){}
 }
 
 void t4(void){
+
+	printf("T4 começou\n");
+
 	//recebe
 	int8_t buft1[64];
 	//envia
@@ -135,9 +155,15 @@ void t4(void){
 	sprintf(buft8, "Recebi de T4 \n");
 	result = hf_sendack(4, 80, buft8, sizeof(buft8), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+	printf("T4 acabou\n");
+	while(1){}
 }
 
 void t5(void){
+
+	printf("T5 começou\n");
+
 	//recebe
 	int8_t buft1[64];
 	//envia
@@ -161,9 +187,15 @@ void t5(void){
 	sprintf(buft8, "Recebi de T5 \n");
 	result = hf_sendack(4, 80, buft8, sizeof(buft8), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+	printf("T5 acabou\n");
+	while(1){}
 }
 
 void t6(void){
+
+	printf("T6 começou\n");
+
 	//recebe
 	int8_t buft2[64];
 	//envia
@@ -187,9 +219,15 @@ void t6(void){
 	sprintf(buft9, "Recebi de T6 \n");
 	result = hf_sendack(0, 90, buft9, sizeof(buft9), 0, 500);
 	if (result) printf("sender, hf_sendack(): error %d\n", result);	
+
+	printf("T6 acabou\n");
+	while(1){}
 }
 
 void t7(void){
+
+	printf("T7 começou\n");
+
     //recebe
     int8_t buft1[1280];
     int8_t buft2[320];
@@ -225,9 +263,15 @@ void t7(void){
 	sprintf(buft9, "Recebi de T7 \n");
     result = hf_sendack(0, 90, buft9, sizeof(buft9), 0, 500);
     if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+    printf("T7 acabou\n");
+    while(1){}
 }
 
 void t8(void){
+
+	printf("T8 começou\n");
+
     //recebe
     int8_t buft2[320];
     int8_t buft3[64];
@@ -269,9 +313,14 @@ void t8(void){
 	sprintf(buft9, "Recebi de T8 \n");
     result = hf_sendack(0, 90, buft9, sizeof(buft9), 0, 500);
     if (result) printf("sender, hf_sendack(): error %d\n", result);
+
+    printf("T8 acabou\n");
+    while(1){}
 }
 
 void t9(void){
+
+	printf("T9 começou\n");
     
     //recebe
     int8_t buft6[640];
@@ -300,6 +349,9 @@ void t9(void){
     result = hf_recvack(&cpu2, &task2, buft8, &size2, 0);
     if (result) printf("error %d\n", result);
     else printf("Sou T9 e %s", buft8);
+
+    printf("T9 acabou\n");
+    while(1){}
 }
 
 

@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.00 [Oct  4 2016, 17:40:01]
+HellfireOS v2.00 [Oct  6 2016, 13:42:02]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2016]
 ===========================================================
 
@@ -15,19 +15,23 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _irq_init()
 HAL: _timer_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 100022ec, sp: 1000669c, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 1000229c, sp: 1000674c, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core 3
 KERNEL: NoC queue init, 64 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [T7], id: 1, p:0, c:0, d:0, addr: 1000067c, sp: 100099cc, ss: 4096 bytes
-KERNEL: [T4], id: 2, p:0, c:0, d:0, addr: 10000a4c, sp: 1000a9d4, ss: 4096 bytes
+KERNEL: [T7], id: 1, p:0, c:0, d:0, addr: 100005f0, sp: 10009a7c, ss: 4096 bytes
+KERNEL: [T4], id: 2, p:0, c:0, d:0, addr: 100009bc, sp: 1000aa84, ss: 4096 bytes
 KERNEL: free heap: 481264 bytes
 KERNEL: HellfireOS is running
+T4 começou
+T7 começou
 Sou T7 e Recebi de T1 
 Sou T7 e Recebi de T3 
 Sou T4 e Recebi de T1 
 T4 enviando para T8, da CPU 3 e thread 2
-
-KERNEL: panic [task 2] - unknown error -> system halted.
+T4 acabou
+Sou T7 e Recebi de T2 
+T7 enviando para T9, da CPU 3 e thread 1
+T7 acabou

@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.00 [Oct  4 2016, 17:39:58]
+HellfireOS v2.00 [Oct  6 2016, 13:41:59]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2016]
 ===========================================================
 
@@ -15,20 +15,23 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _irq_init()
 HAL: _timer_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 100022ec, sp: 1000669c, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 1000229c, sp: 1000674c, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core 1
 KERNEL: NoC queue init, 64 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [T5], id: 1, p:0, c:0, d:0, addr: 10000948, sp: 100099cc, ss: 4096 bytes
-KERNEL: [T2], id: 2, p:0, c:0, d:0, addr: 10000cc0, sp: 1000a9d4, ss: 4096 bytes
+KERNEL: [T5], id: 1, p:0, c:0, d:0, addr: 100008a4, sp: 10009a7c, ss: 4096 bytes
+KERNEL: [T2], id: 2, p:0, c:0, d:0, addr: 10000c58, sp: 1000aa84, ss: 4096 bytes
 KERNEL: free heap: 481264 bytes
 KERNEL: HellfireOS is running
+T2 começou
+T5 começou
 Sou T2 e Recebi de T1 
 T2 enviando para T6, da CPU 1 e thread 2
 T2 enviando para T7, da CPU 1 e thread 2
 Sou T5 e Recebi de T1 
-T5 enviando para T8, da CPU 1 e thread 1
-
-KERNEL: panic [task 1] - unknown error -> system halted.
+T5 enviando para T8, da CPU 1 e threT2 enviando para T8, da CPU 1 e thread 2
+T2 acabou
+ad 1
+T5 acabou
