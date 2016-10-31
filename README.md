@@ -44,5 +44,19 @@ cd usr/sim/mpsoc_sim/
 make noc_3x2	
 ./mpsoc_sim 3 s
 ```
+
+- T2
+```
+subl host/filter_image.h
+cd usr/sim/mpsoc_sim/
+./mpsoc_sim 20 s
+subl reports/out0.txt
+<copy image>
+cd ../../../
+cd host/
+gcc create_bmp.c -o create_bmp
+./create_bmp
+xnview output.bmp &
+```
 ---
 
