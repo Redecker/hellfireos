@@ -2,6 +2,12 @@
 #include <noc.h>
 #include "image.h"
 
+struct matrixPacket {
+  uint32_t x;
+  uint32_t y;
+  uint8_t* data;
+} matrixPacket;
+
 uint8_t gausian(uint8_t buffer[5][5]){
 	int32_t sum = 0, mpixel;
 	uint8_t i, j;
@@ -63,47 +69,54 @@ uint8_t sobel(uint8_t buffer[3][3]){
 	return (uint8_t)sum;
 }
 
-void do_gausian(uint8_t *img, int32_t width, int32_t height){
-	int32_t i, j, k, l;
-	uint8_t image_buf[5][5];
-	
-	for(i = 0; i < height; i++){
-		if (i > 1 || i < height-1){
-			for(j = 0; j < width; j++){
-				if (j > 1 || j < width-1){
-					for (k = 0; k < 5;k++)
-						for(l = 0; l < 5; l++)
-							image_buf[k][l] = image[(((i + l-2) * width) + (j + k-2))];
+uint8_t* do_gausian(uint8_t *chunk, int32_t width, int32_t height){
+    int32_t i, j, k, l;
+    uint8_t image_buf[5][5];
+    
+    uint8_t *outImg = (uint8_t *) malloc(width*height);
 
-					img[((i * width) + j)] = gausian(image_buf);
-				}else{
-					img[((i * width) + j)] = image[((i * width) + j)];
-				}
-			}
-		}
-	}
+    for(i = 0; i < height; i++){
+        if (i > 1 || i < height-1){
+            for(j = 0; j < width; j++){
+                if (j > 1 || j < width-1){
+                    for (k = 0; k < 5;k++)
+                        for(l = 0; l < 5; l++)
+                            image_buf[k][l] = chunk[(((i + l-2) * width) + (j + k-2))];
+
+                    outImg[((i * width) + j)] = gausian(image_buf);
+                }else{
+                    outImg[((i * width) + j)] = chunk[((i * width) + j)];
+                }
+            }
+        }
+    }
+
+    return outImg;
 }
 
-void do_sobel(uint8_t *img, int32_t width, int32_t height){
-	int32_t i, j, k, l;
-	uint8_t image_buf[3][3];
-	
-	for(i = 0; i < height; i++){
-		if (i > 0 || i < height){
-			for(j = 0; j < width; j++){
-				if (j > 0 || j < width){
-					for (k = 0; k < 3;k++)
-						for(l = 0; l < 3; l++)
-							image_buf[k][l] = image[(((i + l-1) * width) + (j + k-1))];
+uint8_t* do_sobel(uint8_t *chunk, int32_t width, int32_t height){
+    int32_t i, j, k, l;
+    uint8_t image_buf[3][3];
+    uint8_t *outImg = (uint8_t *) malloc(width*height);
 
-					img[((i * width) + j)] = sobel(image_buf);
-				}else{
-					img[((i * width) + j)] = image[((i * width) + j)];
-				}
-			}
-		}
-	}
+    for(i = 0; i < height; i++){
+        if (i > 0 || i < height){
+            for(j = 0; j < width; j++){
+                if (j > 0 || j < width){
+                    for (k = 0; k < 3;k++)
+                        for(l = 0; l < 3; l++)
+                            image_buf[k][l] = chunk[(((i + l-1) * width) + (j + k-1))];
+
+                    outImg[((i * width) + j)] = sobel(image_buf);
+                }else{
+                    outImg[((i * width) + j)] = chunk[((i * width) + j)];
+                }
+            }
+        }
+    }
+    return outImg;
 }
+
 
 uint32_t convertPosToIndex(uint32_t x, uint32_t y, uint32_t aWidth)
 {	
@@ -113,23 +126,23 @@ uint32_t convertPosToIndex(uint32_t x, uint32_t y, uint32_t aWidth)
 
 
 void task(void){
-	uint32_t i, j, k = 0;
-	uint8_t *img;
-	uint32_t time;
-	
-	while(1) {
-		img = (uint8_t *) malloc(height * width);
-		if (img == NULL){
-			printf("\nmalloc() failed!\n");
-			for(;;);
-		}
+    uint32_t i, j, k = 0;
+    uint8_t* img;
+    uint32_t time;
+    
+    while(1) {
+        img = (uint8_t *) malloc(height * width);
+        if (img == NULL){
+            printf("\nmalloc() failed!\n");
+            for(;;);
+        }
 
-		printf("\n\nstart of processing!\n\n");
+        printf("\n\nstart of processing!\n\n");
 
-		time = _readcounter();
+        time = _readcounter();
 
-		//começa aqui
-        uint8_t chunk[1024];
+        //começa aqui
+        uint8_t* chunk = (uint8_t*) malloc(1024);
 
         uint32_t x,y = 0;
         
@@ -140,32 +153,47 @@ void task(void){
         for(i=0; i<maxY; i++)
         {
             for(j=0; j<maxX; j++)
-
-
             {
-            	printf("Bloco %d \n", i+j);
+                //printf("Bloco %d \n", i+j);
                 for(y=0; y<32; y++)
-                {	
-
+                {   
                     for(x=0; x<32; x++)
-                    {	
-                    	uint32_t posarray = convertPosToIndex(x + j*32, y + i*32, width);
+                    {   
+                        uint32_t posarray = convertPosToIndex(x + j*32, y + i*32, width);
                         chunk[convertPosToIndex(x,y, 32)] = image[posarray];
-                        printf("0x%02x ", chunk[convertPosToIndex(x,y, 32)]);
-                    }
-                    printf("\n");
-                }
-                //manda pro filhão
-                
 
+                        //printf("0x%02x ", chunk[convertPosToIndex(x,y, 32)]);
+                    }
+                    //printf("\n");
+                }
+                   
+                
+                struct matrixPacket mp;
+                mp.x = j;
+                mp.y = i;
+                mp.data = chunk;
+
+
+                //Manda a struct pro filhao
+                
+                //Filhao faz as coisas
+                mp.data = do_gausian(mp.data, 32, 32);        
+                mp.data = do_sobel(mp.data, 32, 32);     
+
+
+                //Filaho manda de volta
+                
+                //Auxiliar do filhao junta
+
+                for(y=0; y<32; y++)
+                {   
+                    for(x=0; x<32; x++)
+                    {   
+                        img[convertPosToIndex(mp.x*32 + x, mp.y*32 + y, width)] = mp.data[convertPosToIndex(x,y,32)];
+                    }
+                }
             }
         }
-
-        
-
-		do_gausian(img, 32, 32);
-		do_sobel(img, 32, 32);
-
 		time = _readcounter() - time;
 
 		printf("done in %d clock cycles.\n\n", time);

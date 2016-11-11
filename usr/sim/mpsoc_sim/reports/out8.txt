@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.00 [Nov 11 2016, 17:55:35]
+HellfireOS v2.00 [Nov 11 2016, 19:21:45]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2016]
 ===========================================================
 
@@ -15,7 +15,7 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _irq_init()
 HAL: _timer_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001a48, sp: 10015110, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001a08, sp: 100150b0, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core 8
 KERNEL: NoC queue init, 64 packets
