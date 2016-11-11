@@ -105,6 +105,13 @@ void do_sobel(uint8_t *img, int32_t width, int32_t height){
 	}
 }
 
+uint32_t convertPosToIndex(uint32_t x, uint32_t y, uint32_t aWidth)
+{	
+	//printf("(%d+%d*%d)", x, width, y);
+    return (x + aWidth * y);
+}
+
+
 void task(void){
 	uint32_t i, j, k = 0;
 	uint8_t *img;
@@ -121,8 +128,43 @@ void task(void){
 
 		time = _readcounter();
 
-		do_gausian(img, width, height);
-		do_sobel(img, width, height);
+		//começa aqui
+        uint8_t chunk[1024];
+
+        uint32_t x,y = 0;
+        
+        //Como tem 16 slaves, da pra fazer 2 for
+        uint8_t maxX = width/32;
+        uint8_t maxY = height/32;
+
+        for(i=0; i<maxY; i++)
+        {
+            for(j=0; j<maxX; j++)
+
+
+            {
+            	printf("Bloco %d \n", i+j);
+                for(y=0; y<32; y++)
+                {	
+
+                    for(x=0; x<32; x++)
+                    {	
+                    	uint32_t posarray = convertPosToIndex(x + j*32, y + i*32, width);
+                        chunk[convertPosToIndex(x,y, 32)] = image[posarray];
+                        printf("0x%02x ", chunk[convertPosToIndex(x,y, 32)]);
+                    }
+                    printf("\n");
+                }
+                //manda pro filhão
+                
+
+            }
+        }
+
+        
+
+		do_gausian(img, 32, 32);
+		do_sobel(img, 32, 32);
 
 		time = _readcounter() - time;
 
