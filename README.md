@@ -47,9 +47,17 @@ make noc_3x2
 
 - T2
 ```
-subl host/filter_image.h
+//compile the app
+cd platform/noc_3x2/
+make clean
+make images
+cp *.bin ~/Documents/hellfireos/usr/sim/mpsoc_sim/objects/ -f
+cd ../../
+//simulates the mpsoc
 cd usr/sim/mpsoc_sim/
 ./mpsoc_sim 20 s
+//see the image
+subl host/filter_image.h
 subl reports/out0.txt
 <copy image>
 cd ../../../
